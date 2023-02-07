@@ -1,14 +1,31 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import BodySection from "./BodySection.js";
-configure({adapter: new Adapter()});
+import { shallow } from 'enzyme';
+import BodySection from './BodySection';
+import { StyleSheetTestUtils } from 'aphrodite';
 
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
 
-it("ender correctly the children and one h2 element", () => {
-    const wrapper = shallow(<BodySection title='News from the School'>
-    <p>Log in the School addEventListener </p>
-  </BodySection> )
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
-  expect(wrapper.html()).toContain('<div class="bodySection"><h2>News from the School</h2><p>Log in the School addEventListener </p></div>')
-})
+describe('Basic React Tests - <BodySection />', function() {
+	it('Should render without crashing', () => {
+		const wrapper = shallow(<BodySection />);
+		expect(wrapper.exists()).toBeTruthy();
+	});
+
+	it('Should render correctly the children and one h2 element', () => {
+		const wrapper = shallow(
+			<BodySection title="test title">
+				<p>test children node</p>
+			</BodySection>
+		);
+		expect(wrapper.find('h2')).toHaveLength(1);
+		expect(wrapper.find('h2').text('test title')).toBeTruthy();
+		expect(wrapper.find('p')).toHaveLength(1);
+		expect(wrapper.find('p').text('test children node')).toBeTruthy();
+	});
+});

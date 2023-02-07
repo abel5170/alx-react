@@ -1,16 +1,41 @@
 import React from 'react';
-import CourseList from "./CourseList.js"
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import listCourses from '../App/App.js'
-configure({adapter: new Adapter()});
+import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from 'aphrodite';
+import CourseList from './CourseList';
 
-it("renders CourseList component without crashing", () => {
-    const wrapper = shallow(<CourseList/>)
-    expect(wrapper.exists()).toEqual(true)
-})
+beforeEach(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
 
-it("5", () => {
-    const wrapper = shallow(<CourseList/>)
-    expect(wrapper.find('CourseListRow')).toHaveLength(3)
-})
+afterEach(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
+
+describe('Basic React Tests - <CourseList />', function() {
+	const listCourses = [
+    {id: 1, name: 'ES6', credit: 60},
+    {id: 2, name: 'Webpack', credit: 20},
+    {id: 3, name: 'React', credit: 40}
+  ];
+
+	it('Should render without crashing', () => {
+		const wrapper = shallow(<CourseList />);
+		expect(wrapper.exists()).toBeTruthy();
+	});
+
+	it('Should render the 5 different rows', () => {
+		const wrapper = shallow(<CourseList listCourses={listCourses} />);
+		expect(wrapper.find('CourseListRow')).toHaveLength(5);
+	});
+
+	it ('Should check that CourseList render correctly if pass an empty array', () => {
+		const newArray = [];
+    const wrapper = shallow(<CourseList listCourses={newArray} />);
+    expect(wrapper.find('CourseListRow')).toHaveLength(3);
+	});
+
+	it('Should check that CourseList render correctly if don’t pass the listCourses property', () => {
+    const wrapper = shallow(<CourseList />);
+    expect(wrapper.find('CourseListRow')).toHaveLength(3);
+  });
+});

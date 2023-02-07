@@ -1,51 +1,47 @@
 {
   "name": "dashboard",
-  "version": "0.1.0",
-  "private": true,
-  "homepage": "https://usfbelhadj.github.io/holbertonschool-web_react/",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --open --mode development --config config/webpack.config.js",
+    "test-watch": "jest --watch",
+    "build": "webpack --mode development --config config/webpack.config.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-env": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.5",
+    "babel-loader": "^8.2.3",
+    "css-loader": "^6.5.1",
+    "file-loader": "^6.2.0",
+    "image-webpack-loader": "^8.0.1",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.61.0",
+    "webpack-cli": "^4.9.1",
+    "webpack-dev-server": "^4.4.0"
+  },
   "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
     "aphrodite": "^2.4.0",
+    "inline-source-map": "^0.6.2",
+    "jest": "^27.3.1",
+    "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3"
+    "web-vitals": "^2.1.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "jest",
-    "eject": "react-scripts eject",
-    "test-watch": "jest --watch",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
+  "jest": {
+    "setupFiles": [
+      "<rootDir>/config/setupTests.js"
     ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "@babel/preset-env": "^7.14.7",
-    "@babel/preset-react": "^7.14.5",
-    "@jest/globals": "^26.6.2",
-    "enzyme": "^3.11.0",
-    "enzyme-adapter-react-16": "^1.15.6",
-    "jest-css-modules-transform": "^4.3.0",
-    "prop-types": "^15.7.2"
+    "moduleNameMapper": {
+      "\\.(css)$": "<rootDir>/__mocks__/styleMock.js",
+      "\\.(png|svg|jpg|jpeg|gif)$": "<rootDir>/__mocks__/fileMock.js"
+    },
+    "testEnvironment": "jsdom"
   }
 }

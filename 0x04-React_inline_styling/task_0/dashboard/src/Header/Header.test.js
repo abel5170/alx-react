@@ -1,16 +1,20 @@
 import React from 'react';
-import { shallow, configure } from 'enzyme';
-import Adapter from 'enzyme-adapter-react-16';
-import Header from "./Header";
-configure({adapter: new Adapter()});
+import { shallow } from 'enzyme';
+import Header from './Header';
 
+describe('Basic React Tests - <Header />', function() {
+	it('Should render without crashing', () => {
+		const wrapper = shallow(<Header />);
+		expect(wrapper.exists()).toBeTruthy();
+	});
 
-it('App render class App-header', () => {
-    const wrapper = shallow(<Header />);
-    expect(wrapper.find('div.App-header')).toHaveLength(1);
-  });
+	it('Should render img tag', () => {
+		const wrapper = shallow(<Header />);
+		expect(wrapper.find('.Header img').exists()).toEqual(true);
+	});
 
-  it("render img", () => {
-      const wrapper = shallow(<Header/>)
-      expect(wrapper.find('div.App-header img')).toHaveLength(1);
-  })
+	it('Should render h1 tag', () => {
+		const wrapper = shallow(<Header />);
+		expect(wrapper.find('.Header h1').exists()).toEqual(true);
+	});
+});
